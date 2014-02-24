@@ -1,0 +1,43 @@
+{
+  "name": "dat-middleware",
+  "version": "0.0.0",
+  "description": "common request, response, body, query, and param validation and transformation middleware",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tjmehta/dat-middleware.git"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "request",
+    "response",
+    "body",
+    "query",
+    "params"
+  ],
+  "author": "Tejesh Mehta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tjmehta/dat-middleware/issues"
+  },
+  "homepage": "https://github.com/tjmehta/dat-middleware",
+  "dependencies": {
+    "joi": "~2.7.0",
+    "value-for-keypath": "~0.1.0",
+    "lodash": "~2.4.1",
+    "boom": "~2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1",
+    "express": "~3.4.8",
+    "supertest": "~0.9.0",
+    "should": "~3.1.2"
+  }
+}
