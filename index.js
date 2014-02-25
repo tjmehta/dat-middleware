@@ -2,8 +2,8 @@ module.exports = {
   // req: require('./request'),
   // res: require('./response'),
   body: require('./lib/body'),
-  // query: require('./query'),
-  // params: require('./params')
+  query: require('./lib/query'),
+  params: require('./lib/params'),
   // headers: require('./headers')
   errorHandler: require('./lib/errorHandler')
 };
