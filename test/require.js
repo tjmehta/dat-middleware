@@ -81,7 +81,7 @@ function requireKeys (dataType) {
       var params1 = dataType === 'params' ? values(data1) : [];
       request(this.app)
         .post('/'+dataType, params1, query1)
-        .send(data1)
+        .send(body1)
         .expect(400)
         .expect(function (res) {
           res.body.message.should.match(new RegExp(keys[1]));
@@ -95,7 +95,7 @@ function requireKeys (dataType) {
         var query2 = dataType === 'query' ? data2 : {};
         request(this.app)
           .post('/'+dataType, query2)
-          .send(data2)
+          .send(body2)
           .expect(400)
           .expect(function (res) {
             res.body.message.should.match(new RegExp(keys[0]));

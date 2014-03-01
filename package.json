@@ -4,7 +4,8 @@
   "description": "common request, response, body, query, and param validation and transformation middleware",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "testwatch": "nodemon --delay 1 -w lib -w test -w configs -x npm test"
   },
   "scripts": {
     "test": "mocha test"
@@ -40,6 +41,7 @@
     "express": "~3.4.8",
     "supertest": "~0.9.0",
     "should": "~3.1.2",
-    "methods": "~0.1.0"
+    "methods": "~0.1.0",
+    "nodemon": "^1.0.15"
   }
 }
