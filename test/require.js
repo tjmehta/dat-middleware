@@ -88,7 +88,7 @@ function requireKeys (dataType) {
           res.body.message.should.match(/required/);
         })
         .end(count.inc().next);
-      if (dataType !== 'params') {
+      if (dataType !== 'params') { // not possible for params to have middle param missing
         var data2 = {};
         data2[keys[1]] = 'value2';
         var body2 = dataType === 'body' ? data2 : {};

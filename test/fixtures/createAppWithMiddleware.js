@@ -8,6 +8,7 @@ module.exports = function createAppWithMiddleware (middleware) {
   app.use(app.router);
   app.use(mw.errorHandler({ showStack: true }));
   app.all('/body',
+    // inspect,
     middleware,
     mw.body().send());
   app.all('/query',
@@ -19,9 +20,9 @@ module.exports = function createAppWithMiddleware (middleware) {
   return app;
 };
 
-// function inspect (req, res, next) {
-//   console.log('req.body', req.body);
-//   console.log('req.query', req.query);
-//   console.log('req.params', req.params);
-//   next();
-// }
+function inspect (req, res, next) {
+  console.log('req.body', req.body);
+  console.log('req.query', req.query);
+  console.log('req.params', req.params);
+  next();
+}
