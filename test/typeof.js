@@ -8,14 +8,26 @@ var values = function (obj) {
   });
 };
 
-describe('mw.body(key).typeOf("string")', typeOf('body', 'string', 'value'));
-describe('mw.query(key).typeOf("string")', typeOf('query', 'string', 'value'));
-describe('mw.params(key).typeOf("string")', typeOf('params', 'string', 'value'));
+describe('typeOf', function () {
+  describe('mw.body(key).typeOf("string")', typeOf('body', 'string', 'value'));
+  describe('mw.query(key).typeOf("string")', typeOf('query', 'string', 'value'));
+  describe('mw.params(key).typeOf("string")', typeOf('params', 'string', 'value'));
 
-// query and params do not support numbers, objects, or booleans
-describe('mw.body(key).typeOf("number")',  typeOf('body', 'number', 1));
-describe('mw.body(key).typeOf("object")',  typeOf('body', 'object', {}));
-describe('mw.body(key).typeOf("boolean")', typeOf('body', 'boolean', true));
+  // query and params do not support numbers, objects, or booleans
+  describe('mw.body(key).typeOf("number")',  typeOf('body', 'number', 1));
+  describe('mw.body(key).typeOf("object")',  typeOf('body', 'object', {}));
+  describe('mw.body(key).typeOf("boolean")', typeOf('body', 'boolean', true));
+
+  describe('mw.body(keys...).typeOf("string")', typeOfKeys('body', 'string', 'value'));
+  describe('mw.query(keys...).typeOf("string")', typeOfKeys('query', 'string', 'value'));
+  describe('mw.params(keys...).typeOf("string")', typeOfKeys('params', 'string', 'value'));
+
+  // query and params do not support numbers, objects, or booleans
+  describe('mw.body(keys...).typeOf("number")',  typeOfKeys('body', 'number', 1));
+  describe('mw.body(keys...).typeOf("object")',  typeOfKeys('body', 'object', {}));
+  describe('mw.body(keys...).typeOf("boolean")', typeOfKeys('body', 'boolean', true));
+});
+
 
 function typeOf (dataType, type, value) {
   return function () {
@@ -65,15 +77,6 @@ function typeOf (dataType, type, value) {
     });
   };
 }
-
-describe('mw.body(keys...).typeOf("string")', typeOfKeys('body', 'string', 'value'));
-describe('mw.query(keys...).typeOf("string")', typeOfKeys('query', 'string', 'value'));
-describe('mw.params(keys...).typeOf("string")', typeOfKeys('params', 'string', 'value'));
-
-// query and params do not support numbers, objects, or booleans
-describe('mw.body(keys...).typeOf("number")',  typeOfKeys('body', 'number', 1));
-describe('mw.body(keys...).typeOf("object")',  typeOfKeys('body', 'object', {}));
-describe('mw.body(keys...).typeOf("boolean")', typeOfKeys('body', 'boolean', true));
 
 function typeOfKeys (dataType, type, value) {
   return function () {

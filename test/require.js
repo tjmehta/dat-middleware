@@ -8,9 +8,15 @@ var values = function (obj) {
   });
 };
 
-describe('mw.body(key).require()', requireKey('body'));
-describe('mw.query(key).require()', requireKey('query'));
-describe('mw.params(key).require()', requireKey('params'));
+describe('require', function () {
+  describe('mw.body(key).require()', requireKey('body'));
+  describe('mw.query(key).require()', requireKey('query'));
+  describe('mw.params(key).require()', requireKey('params'));
+
+  describe('mw.body(keys...).require()', requireKeys('body'));
+  describe('mw.query(keys...).require()', requireKeys('query'));
+  describe('mw.params(keys...).require()', requireKeys('params'));
+});
 
 function requireKey (dataType) {
   return function () {
@@ -45,10 +51,6 @@ function requireKey (dataType) {
     });
   };
 }
-
-describe('mw.body(keys...).require()', requireKeys('body'));
-describe('mw.query(keys...).require()', requireKeys('query'));
-describe('mw.params(keys...).require()', requireKeys('params'));
 
 function requireKeys (dataType) {
   return function () {

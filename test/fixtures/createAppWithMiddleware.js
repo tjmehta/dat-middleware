@@ -12,9 +12,11 @@ module.exports = function createAppWithMiddleware (middleware) {
     middleware,
     mw.body().send());
   app.all('/query',
+    // inspect,
     middleware,
     mw.query().send());
   app.all('/params/:key1?/:key2?/:key3?/:key4?/:key5?',
+    // inspect,
     middleware,
     mw.params().send());
   return app;
