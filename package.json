@@ -4,11 +4,11 @@
   "description": "common request, response, body, query, and param validation and transformation middleware",
   "main": "index.js",
   "directories": {
-    "test": "test",
-    "testwatch": "nodemon --delay 1 -w lib -w test -w configs -x npm test"
+    "test": "test"
   },
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "testwatch": "nodemon --delay 1 -w lib -w test -w configs -x npm test"
   },
   "repository": {
     "type": "git",
@@ -31,11 +31,13 @@
   "homepage": "https://github.com/tjmehta/dat-middleware",
   "dependencies": {
     "joi": "~2.7.0",
-    "value-for-keypath": "~0.2.0",
     "lodash": "~2.4.1",
     "boom": "~2.2.0",
     "callback-count": "0.0.3",
-    "fn-object": "^0.2.2"
+    "fn-object": "^0.2.2",
+    "map-utils": "^0.1.1",
+    "keypather": "^1.1.0",
+    "middleware-flow": "^0.2.0"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
