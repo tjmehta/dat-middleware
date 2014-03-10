@@ -170,6 +170,19 @@ var app = require('express')();
 app.use(mw.body('key1').pick());
 ```
 
+## set()
+
+sets the keys and values on the data type.
+
+```js
+var mw = require('dat-middleware');
+var app = require('express')();
+
+// a body of { key1: true, key2: true, key3:true } becomes { key1: true }
+app.use(mw.body('key1').set('key', 'value'));
+app.use(mw.body('key1').set(obj));
+```
+
 # Conditionals (flow control):
 
 for more flow control checkout [middleware-flow](http://github.com/tjmehta/middleware-flow)

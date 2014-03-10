@@ -46,6 +46,7 @@
     "should": "~3.1.2",
     "methods": "~0.1.0",
     "nodemon": "^1.0.15",
-    "fn-object": "^0.2.1"
+    "fn-object": "^0.2.1",
+    "clone": "^0.1.11"
   }
 }
