@@ -1,6 +1,6 @@
 # dat-middleware [![Build Status](https://travis-ci.org/tjmehta/dat-middleware.png?branch=master)](https://travis-ci.org/tjmehta/dat-middleware)
 
-Middleware control flow library
+Common request, response, body, query, and param validation, transformation, and flow control middleware
 
 # Installation
 ```bash
@@ -171,6 +171,8 @@ app.use(mw.body('key1').pick());
 ```
 
 # Conditionals (flow control):
+
+for more flow control checkout [middleware-flow](http://github.com/tjmehta/middleware-flow)
 
 ## if(keys...).then(middlewares...).else(middlewares...)
 
