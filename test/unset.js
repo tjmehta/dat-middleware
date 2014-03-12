@@ -3,46 +3,34 @@ var mw = require('../index');
 var fno = require('fn-object');
 var createCounter = require('callback-count');
 var request = require('./lib/superdupertest');
-var clone = require('clone');
 var values = function (obj) {
   return Object.keys(obj).map(function (key) {
     return obj[key];
   });
 };
-var extend = function (obj, key, value) {
-  var extend;
-  if (typeof key === 'object') {
-    extend = key;
-  }
-  else {
-    extend = {};
-    extend[key] = value;
-  }
-  Object.keys(extend).forEach(function (key) {
-    obj[key] = extend[key];
-  });
-  return obj;
-};
 
-describe('set', function () {
-  describe('mw.body().set(key, value)', setKey('body', 'key2', true));
-  describe('mw.query().set(key, value)', setKey('query', 'key2', true));
-  describe('mw.params().set(key, value)', setKey('params', 'key2', true));
-  describe('mw.body().set(obj)', setKeys('body', {key2: true, key3: true}));
-  describe('mw.query().set(obj)', setKeys('query', {key2: true, key3: true}));
-  describe('mw.params().set(obj)', setKeys('params', {key2: true, key3: true}));
+describe('unset', function () {
+  describe('mw.body().unset(key)', unsetKey('body'));
+  describe('mw.query().unset(key)', unsetKey('query'));
+  describe('mw.params().unset(key)', unsetKey('params'));
+  describe('mw.body().unset(keys..)', unsetKeys('body'));
+  describe('mw.query().unset(keys..)', unsetKeys('query'));
+  describe('mw.params().unset(keys..)', unsetKeys('params'));
 });
 
-function setKey (dataType, key, value) {
+function unsetKey (dataType) {
   return function () {
     beforeEach(function () {
       this.key = 'key1';
-      this.app = createAppWithMiddleware(mw[dataType]().set(key, value));
+      this.unsetKey = 'key2';
+      this.app = createAppWithMiddleware(mw[dataType]().unset(this.unsetKey));
     });
-    it('should set key', function (done) {
+    it('should unset key', function (done) {
       var data = {};
       data[this.key] = 'value';
-      var expected = extend(clone(data), key, value);
+      data[this.unsetKey] = 'value';
+      var expected = {};
+      expected[this.key] = 'value';
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
@@ -58,20 +46,26 @@ function setKey (dataType, key, value) {
   };
 }
 
-function setKeys (dataType, obj) {
+function unsetKeys (dataType) {
   return function () {
     beforeEach(function () {
       this.keys = ['key1', 'key2'];
-      this.app = createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).set(obj));
+      this.unsetKeys = ['key3', 'key4'];
+      this.app = createAppWithMiddleware(mw[dataType]().unset(this.unsetKeys[0], this.unsetKeys[1]));
     });
-    it('should set key', function (done) {
+    it('should unset keys', function (done) {
       var data = {};
       data[this.keys[0]] = 'value';
       data[this.keys[1]] = 'value';
-      var expected = extend(clone(data), obj);
+      data[this.unsetKeys[0]] = 'value';
+      data[this.unsetKeys[1]] = 'value';
+      var expected = {};
+      expected[this.keys[0]] = 'value';
+      expected[this.keys[1]] = 'value';
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
+      console.log('body',body);
       request(this.app)
         .post('/'+dataType, params, query)
         .send(body)

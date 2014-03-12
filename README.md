@@ -179,8 +179,20 @@ var mw = require('dat-middleware');
 var app = require('express')();
 
 // a body of { key1: true, key2: true, key3:true } becomes { key1: true }
-app.use(mw.body('key1').set('key', 'value'));
-app.use(mw.body('key1').set(obj));
+app.use(mw.body().set('key', 'value'));
+app.use(mw.body().set(obj));
+```
+
+## unset()
+
+deletes the keys on the data type.
+
+```js
+var mw = require('dat-middleware');
+var app = require('express')();
+
+// a body of { key1: true, key2: true, key3:true } becomes { key3:true }
+app.use(mw.body().unset('key1', 'key2'));
 ```
 
 # Conditionals (flow control):

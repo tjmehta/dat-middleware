@@ -53,7 +53,7 @@ function pickKeys (dataType) {
       this.blockedKeys = ['blocked1', 'blocked2'];
       this.app = createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).pick());
     });
-    it('should pick key', function (done) {
+    it('should pick keys', function (done) {
       var data = {};
       data[this.keys[0]] = 'value';
       data[this.keys[1]] = 'value';
