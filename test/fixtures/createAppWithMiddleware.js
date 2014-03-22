@@ -6,7 +6,7 @@ module.exports = function createAppWithMiddleware (middleware) {
   app.use(express.json());
   app.use(express.urlencoded());
   app.use(app.router);
-  app.use(mw.errorHandler({ showStack: true }));
+  app.use(mw.errorHandler({ showStack: true, log: false }));
   app.all('/body',
     // inspect,
     middleware,
