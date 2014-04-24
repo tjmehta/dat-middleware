@@ -1,10 +1,13 @@
-module.exports = {
-  // req: require('./request'),
-  // res: require('./response'),
-  Boom: require('boom'),
-  body: require('./lib/body'),
-  query: require('./lib/query'),
-  params: require('./lib/params'),
-  // headers: require('./headers')
-  errorHandler: require('./lib/errorHandler')
+var RequestData = require('./lib/RequestData');
+var requestDataFactory = require('./lib/requestDataFactory');
+
+var mw = module.exports = function () {
+  return requestDataFactory.apply(null, arguments);
 };
+
+mw.Boom        = require('boom');
+mw.req         = requestDataFactory();
+mw.body        = requestDataFactory('body');
+mw.query       = requestDataFactory('query');
+mw.params      = require('./lib/params');
+mw.errorHandler= require('./lib/errorHandler');

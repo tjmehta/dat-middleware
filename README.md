@@ -143,7 +143,7 @@ app.use(mw.body('key1, key2').validate(is24Chars));
 
 # Transformations:
 
-## transform(transformation)
+## mapValues(transformation)
 
 transforms the values of the keys specified using the transformation function
 
@@ -155,7 +155,24 @@ function toInt (v) {
 }
 
 // transforms the req.body.key1 and req.body.key2 to integers
-app.use(mw.body('key1, key2').transform(toInt));
+app.use(mw.body('key1, key2').mapValues(toInt));
+```
+
+## transform(transformation)
+
+transforms the entire dataType object using the transformation function
+
+```js
+var mw = require('dat-middleware');
+var app = require('express')();
+function valuesToInt (body) {
+  Object.keys(body).forEach(function (key) {
+    body[key] = parseInt(body[key]);
+  });
+}
+
+// transforms the req.body.key1 and req.body.key2 to integers
+app.use(mw.body().transform(valuesToInt));
 ```
 
 ## pick()

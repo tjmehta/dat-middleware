@@ -13,19 +13,24 @@ var parseAsInt = function (v) {
 };
 
 describe('mapValues', function () {
+  describe('mw("body")(key).mapValues(parseAsInt)', transformKey(null, '1', parseAsInt));
   describe('mw.body(key).mapValues(parseAsInt)', transformKey('body', '1', parseAsInt));
-  describe('mw.body(key).mapValues(parseAsInt)', transformKey('query', '1', parseAsInt));
-  describe('mw.body(key).mapValues(parseAsInt)', transformKey('params', '1', parseAsInt));
+  describe('mw.query(key).mapValues(parseAsInt)', transformKey('query', '1', parseAsInt));
+  describe('mw.params(key).mapValues(parseAsInt)', transformKey('params', '1', parseAsInt));
+  describe('mw.("body")(keys...).mapValues(parseAsInt)', transformKeys(null, '1', parseAsInt));
   describe('mw.body(keys...).mapValues(parseAsInt)', transformKeys('body', '1', parseAsInt));
-  describe('mw.body(keys...).mapValues(parseAsInt)', transformKeys('query', '1', parseAsInt));
-  describe('mw.body(keys...).mapValues(parseAsInt)', transformKeys('params', '1', parseAsInt));
+  describe('mw.query(keys...).mapValues(parseAsInt)', transformKeys('query', '1', parseAsInt));
+  describe('mw.params(keys...).mapValues(parseAsInt)', transformKeys('params', '1', parseAsInt));
 });
 
 function transformKey (dataType, value, transformation) {
   return function () {
     beforeEach(function () {
       this.key = 'key1';
-      this.app = createAppWithMiddleware(mw[dataType](this.key).mapValues(transformation));
+      this.app = dataType ?
+        createAppWithMiddleware(mw[dataType](this.key).mapValues(transformation)):
+        createAppWithMiddleware(mw("body")(this.key).mapValues(transformation));
+      dataType = dataType || 'body'; // for mw("body")...
     });
     it('should transform '+dataType+' values', function (done) {
       var data = {};
@@ -50,7 +55,10 @@ function transformKeys (dataType, value, transformation) {
   return function () {
     beforeEach(function () {
       this.keys = ['key1', 'key2'];
-      this.app = createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).mapValues(transformation));
+      this.app = dataType ?
+        createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).mapValues(transformation)):
+        createAppWithMiddleware(mw('body')(this.keys[0], this.keys[1]).mapValues(transformation));
+      dataType = dataType || 'body'; // for mw("body")...
     });
     it('should transform '+dataType+' values', function (done) {
       var data = {};

@@ -31,13 +31,12 @@
   "homepage": "https://github.com/tjmehta/dat-middleware",
   "dependencies": {
     "joi": "~2.7.0",
-    "lodash": "~2.4.1",
     "boom": "~2.2.0",
     "callback-count": "0.0.3",
     "fn-object": "^0.2.2",
     "keypather": "^1.1.0",
     "middleware-flow": "^0.2.0",
-    "map-utils": "^0.2.0"
+    "map-utils": "~0.4.0"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
