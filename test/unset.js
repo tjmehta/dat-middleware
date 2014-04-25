@@ -65,7 +65,6 @@ function unsetKeys (dataType) {
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
-      console.log('body',body);
       request(this.app)
         .post('/'+dataType, params, query)
         .send(body)
