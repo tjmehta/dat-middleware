@@ -121,6 +121,20 @@ app.use(mw.body('key1, key2').instanceOf(Class));
 // 400 { message: body parameter "key1" must be an instance of Class }
 ```
 
+## matches(regexp)
+
+requires the keys are an instance of the specified class (if they exist), and nexts a 400 error if one is not
+
+```js
+var mw = require('dat-middleware');
+var app = require('express')();
+
+// requires that req.body.key1 and req.body.key2 match the regexp *if they exist*
+app.use(mw.body('key1, key2').matches(/^hello/));
+// example error:
+// 400 { message: body parameter "key1" must match /^hello/ }
+```
+
 ## validate(validation)
 
 requires the keys pass the validation (if they exist), and nexts a 400 error if one is not
