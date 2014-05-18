@@ -230,71 +230,23 @@ app.use(mw.body().unset('key1', 'key2'));
 
 for more flow control checkout [middleware-flow](http://github.com/tjmehta/middleware-flow)
 
-## if(keys...).then(middlewares...).else(middlewares...)
-
-if the values of the key's specified are all truthy it will run the 'then middlewares'
-else if will run the 'else middlewares'
+## [validation chain].then(middlewares...).else(middlewares)
 
 ```js
 var mw = require('dat-middleware');
 var app = require('express')();
 
-// body of {key1:<truthy>} runs mw1 and mw2
-// body of {key1:<falsy>} runs mw3
-app.use(mw.body().if('key1')
-  .then(mw1, mw2)
-  .else(mw3));
-```
-
-## using if with or
-```js
-var mw = require('dat-middleware');
-var app = require('express')();
-
-// body of {key1:<truthy>} runs mw1 and mw2
-// body of {key2:<truthy>} runs mw1 and mw2
-// body of {key1:<truthy>, key2:<truthy>} runs mw1 and mw2
-// body of {key1:<falsy>} runs mw3
-// body of {key1:<falsy>, key2:<falsy>} runs mw3
-app.use(mw.body().if({ or: ['key1', 'key2'] })
-  .then(mw1, mw2)
-  .else(mw3));
-```
-
-## ifExists(keys...).then(middlewares...).else(middlewares...)
-
-if the values of the key's specified all exist it will run the 'then middlewares'
-else if will run the 'else middlewares'
-
-```js
-var mw = require('dat-middleware');
-var app = require('express')();
-
-// body of {key1:true} runs mw1 and mw2
-// body of {key1:null} runs mw3
-app.use(mw.body().ifExists('key1')
-  .then(mw1, mw2)
-  .else(mw3));
-```
-
-## using ifExists with or
-```js
-var mw = require('dat-middleware');
-var app = require('express')();
-
-// body of {key1:'val'} runs mw1 and mw2
-// body of {key2:true} runs mw1 and mw2
-// body of {key1:'val', key2:'val'} runs mw1 and mw2
-// body of {key1:undefined} runs mw3
-// body of {key1:null, key2:null} runs mw3
-app.use(mw.body().ifExists({ or: ['key1', 'key2'] })
-  .then(mw1, mw2)
-  .else(mw3));
+// requires that req.body.key1 and req.body.key2 exist and are 24 characters
+app.use(mw.body('key1, key2').require()
+  .then(mw1) // executes mw1 if key1 and key2 exist
+  .else(mw2) // executes mw1 if key1 and key2 if they dont
+             // if mw2 accept an error it will recieve the validation error, else it will be ignored
+);
 ```
 
 # Chaining: chained methods will run in order
 
-note: conditionals do not chain with validations and transformations
+note: conditionals do not chain before validations and transformations
 
 ```js
 var mw = require('dat-middleware');
