@@ -104,7 +104,6 @@ function requireKeys (dataType) {
           .send(body2)
           .expect(400)
           .expect(function (res) {
-            console.log(res.body.message);
             res.body.message.should.match(new RegExp(keys[0]));
             res.body.message.should.match(/required/);
           })
