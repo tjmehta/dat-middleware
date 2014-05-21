@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha test",
-    "testwatch": "nodemon --delay 1 -w lib -w test -w configs -x npm test"
+    "test-watch": "nodemon --delay 1 -w lib -w test -w configs -x npm test"
   },
   "repository": {
     "type": "git",
