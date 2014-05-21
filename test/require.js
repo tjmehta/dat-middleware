@@ -16,6 +16,10 @@ describe('require', function () {
   describe('mw.body(keys...).require()', requireKeys('body'));
   describe('mw.query(keys...).require()', requireKeys('query'));
   describe('mw.params(keys...).require()', requireKeys('params'));
+
+  describe('mw.body({ or: [keys...] }).require()', requireKeysOr('body'));
+  describe('mw.query({ or: [keys...] }).require()', requireKeysOr('query'));
+  describe('mw.params({ or: [keys...] }).require()', requireKeysOr('params'));
 });
 
 function requireKey (dataType) {
@@ -100,6 +104,7 @@ function requireKeys (dataType) {
           .send(body2)
           .expect(400)
           .expect(function (res) {
+            console.log(res.body.message);
             res.body.message.should.match(new RegExp(keys[0]));
             res.body.message.should.match(/required/);
           })
@@ -119,6 +124,57 @@ function requireKeys (dataType) {
         .send(body)
         .expect(200, data)
         .end(done);
+    });
+  };
+}
+
+function requireKeysOr (dataType) {
+  return function () {
+    beforeEach(function () {
+      var keys = this.keys = ['key1', 'key2'];
+      this.app = createAppWithMiddleware(mw[dataType]({ or: [keys[0], keys[1]] }).require());
+    });
+    it('should error if all keys are not included', function (done) {
+      var keys = this.keys;
+      var body = {};
+      var query = {};
+      var params = values({});
+      request(this.app)
+        .post('/'+dataType, params, query)
+        .send(body)
+        .expect(400)
+        .expect(function (res) {
+          keys.forEach(function (key) {
+            res.body.message.should.match(new RegExp(key));
+          });
+          res.body.message.should.match(/required/);
+        })
+        .end(done);
+    });
+    it('should pass if one required key is included', function (done) {
+      var keys = this.keys;
+      var count = createCounter(done);
+      var data1 = {};
+      data1[keys[0]] = 'value1';
+      var body1 = dataType === 'body' ? data1 : {};
+      var query1 = dataType === 'query' ? data1 : {};
+      var params1 = dataType === 'params' ? values(data1) : [];
+      request(this.app)
+        .post('/'+dataType, params1, query1)
+        .send(body1)
+        .expect(200)
+        .end(count.inc().next);
+      if (dataType !== 'params') { // not possible for params to have middle param missing
+        var data2 = {};
+        data2[keys[1]] = 'value2';
+        var body2 = dataType === 'body' ? data2 : {};
+        var query2 = dataType === 'query' ? data2 : {};
+        request(this.app)
+          .post('/'+dataType, query2)
+          .send(body2)
+          .expect(200)
+          .end(count.inc().next);
+      }
     });
   };
 }
