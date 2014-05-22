@@ -18,7 +18,7 @@ function pass (req, res, cb) { cb(); }
 
 describe('conditionals', function () {
   describe('then', function () {
-    beforeEach(function () {
+    before(function () {
       this.app = createAppWithMiddleware(
         mw.body('key').require()
           .then(appendReqBody('key', '1'))
@@ -34,7 +34,7 @@ describe('conditionals', function () {
     });
   });
   describe('else', function () {
-    beforeEach(function () {
+    before(function () {
       this.app = createAppWithMiddleware(
         mw.body('nonexistant').require()
           .then(appendReqBody('key', '1'))

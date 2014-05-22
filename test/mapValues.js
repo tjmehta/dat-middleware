@@ -25,7 +25,7 @@ describe('mapValues', function () {
 
 function transformKey (dataType, value, transformation) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.key = 'key1';
       this.app = dataType ?
         createAppWithMiddleware(mw[dataType](this.key).mapValues(transformation)):
@@ -53,7 +53,7 @@ function transformKey (dataType, value, transformation) {
 
 function transformKeys (dataType, value, transformation) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.keys = ['key1', 'key2'];
       this.app = dataType ?
         createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).mapValues(transformation)):

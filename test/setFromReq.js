@@ -21,7 +21,7 @@ describe('set (keypath)', function () {
 
 function transformKey (dataType, keypath) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.key = 'key1';
       this.app = dataType ?
         createAppWithMiddleware(mw[dataType]().set(this.key, keypath)):

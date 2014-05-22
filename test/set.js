@@ -35,7 +35,7 @@ describe('set', function () {
 
 function setKey (dataType, key, value) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.key = 'key1';
       this.app = createAppWithMiddleware(mw[dataType]().set(key, value));
     });
@@ -60,7 +60,7 @@ function setKey (dataType, key, value) {
 
 function setKeys (dataType, obj) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.keys = ['key1', 'key2'];
       this.app = createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).set(obj));
     });

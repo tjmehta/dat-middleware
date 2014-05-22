@@ -20,7 +20,7 @@ describe('unset', function () {
 
 function unsetKey (dataType) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.key = 'key1';
       this.unsetKey = 'key2';
       this.app = createAppWithMiddleware(mw[dataType]().unset(this.unsetKey));
@@ -48,7 +48,7 @@ function unsetKey (dataType) {
 
 function unsetKeys (dataType) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.keys = ['key1', 'key2'];
       this.unsetKeys = ['key3', 'key4'];
       this.app = createAppWithMiddleware(mw[dataType]().unset(this.unsetKeys[0], this.unsetKeys[1]));

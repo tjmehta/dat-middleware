@@ -31,7 +31,7 @@ describe('typeOf', function () {
 
 function typeOf (dataType, type, value) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.key = 'key1';
       this.app = createAppWithMiddleware(mw[dataType](this.key).typeOf(type));
     });
@@ -80,7 +80,7 @@ function typeOf (dataType, type, value) {
 
 function typeOfKeys (dataType, type, value) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       var keys = this.keys = ['key1', 'key2'];
       this.app = createAppWithMiddleware(mw[dataType](keys[0], keys[1]).typeOf(type));
     });

@@ -20,7 +20,7 @@ describe('pick', function () {
 
 function pickKey (dataType) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.key = 'key1';
       this.blockedKey = 'blocked1';
       this.app = createAppWithMiddleware(mw[dataType](this.key).pick());
@@ -48,7 +48,7 @@ function pickKey (dataType) {
 
 function pickKeys (dataType) {
   return function () {
-    beforeEach(function () {
+    before(function () {
       this.keys = ['key1', 'key2'];
       this.blockedKeys = ['blocked1', 'blocked2'];
       this.app = createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).pick());
