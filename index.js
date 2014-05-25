@@ -7,6 +7,7 @@ var mw = module.exports = function () {
 
 mw.Boom        = require('boom');
 mw.req         = requestDataFactory();
+mw.res         = require('./lib/res');
 mw.body        = requestDataFactory('body');
 mw.query       = requestDataFactory('query');
 mw.params      = require('./lib/params');
