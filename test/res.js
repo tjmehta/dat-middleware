@@ -7,7 +7,7 @@ describe('res', function() {
   describe('send', function() {
     beforeEach(function () {
       this.app = createAppWithMiddleware(
-        mw.res().send(201, 'hello')
+        mw.res.send(201, 'hello')
       );
     });
     it('should work like res.send', function (done) {
@@ -20,7 +20,7 @@ describe('res', function() {
   describe('json', function() {
     beforeEach(function () {
       this.app = createAppWithMiddleware(
-        mw.res().json(201, {foo:'bar'})
+        mw.res.json(201, {foo:'bar'})
       );
     });
     it('should work like res.json', function (done) {
@@ -34,11 +34,11 @@ describe('res', function() {
     beforeEach(function () {
       this.app = createAppWithMiddleware(
         series(
-          mw.res().status(201),
-          mw.res().write('h'),
-          mw.res().write('e'),
-          mw.res().write('y'),
-          mw.res().end()
+          mw.res.status(201),
+          mw.res.write('h'),
+          mw.res.write('e'),
+          mw.res.write('y'),
+          mw.res.end()
         )
       );
     });
@@ -53,7 +53,7 @@ describe('res', function() {
     beforeEach(function () {
       this.app = createAppWithMiddleware(
         series(
-          mw.res().redirect(301, '/body')
+          mw.res.redirect(301, '/body')
         )
       );
     });
