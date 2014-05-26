@@ -58,6 +58,23 @@ describe('res', function() {
             .expect(201, {result:true})
             .end(done);
         });
+        describe('keypath args to keypath functions', function() {
+          beforeEach(function () {
+            this.app = createAppWithMiddleware(
+              mw.query().set('func', function (a) {
+                return a;
+              }),
+              mw.res.json(201, ['query.func(%)', 'body'])
+            );
+          });
+          it('should support req keypaths keypaths=false option', function (done) {
+            request(this.app)
+              .post('/')
+              .send({ foo: 'bar' })
+              .expect(201, { foo: 'bar' })
+              .end(done);
+          });
+        });
         describe('keypaths false', function() {
           beforeEach(function () {
             this.app = createAppWithMiddleware(
