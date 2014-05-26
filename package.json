@@ -1,6 +1,6 @@
 {
   "name": "dat-middleware",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "common request, response, body, query, and param validation, transformation, and flow control middleware",
   "main": "index.js",
   "directories": {
