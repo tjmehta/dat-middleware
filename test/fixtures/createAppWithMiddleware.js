@@ -1,14 +1,16 @@
 var express = require('express');
 var mw = require('../../index');
 
-module.exports = function createAppWithMiddleware (middleware) {
+module.exports = function createAppWithMiddleware (middleware, middleware2) {
+  middleware2 = middleware2 || function (req, res, next) {next();};
   var app = express();
   app.use(express.json());
   app.use(express.urlencoded());
   app.use(app.router);
   app.use(mw.errorHandler({ showStack: true, log: false }));
   app.all('/',
-    middleware);
+    middleware,
+    middleware2);
   app.all('/body',
     // inspect,
     middleware,

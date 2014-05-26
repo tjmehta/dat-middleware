@@ -29,6 +29,54 @@ describe('res', function() {
         .expect(201, {foo:'bar'})
         .end(done);
     });
+    describe('keypaths', function() {
+      beforeEach(function () {
+        this.app = createAppWithMiddleware(
+          mw.res.json(201, 'body')
+        );
+      });
+      it('should support req keypaths', function (done) {
+        request(this.app)
+          .post('/')
+          .send({ foo: 'bar' })
+          .expect(201, {foo:'bar'})
+          .end(done);
+      });
+      describe('keypath functions', function() {
+        beforeEach(function () {
+          this.app = createAppWithMiddleware(
+            mw.body().set('func', function (a) {
+              return a;
+            }),
+            mw.res.json(201, ['body.func(%)', { result: true }])
+          );
+        });
+        it('should support req keypaths', function (done) {
+          request(this.app)
+            .post('/')
+            .send({ foo: 'bar' })
+            .expect(201, {result:true})
+            .end(done);
+        });
+        describe('keypaths false', function() {
+          beforeEach(function () {
+            this.app = createAppWithMiddleware(
+              mw.body().set('func', function (a) {
+                return a;
+              }),
+              mw.res.json(201, ['body.func(%)', { result: true }], true)
+            );
+          });
+          it('should support req keypaths keypaths=false option', function (done) {
+            request(this.app)
+              .post('/')
+              .send({ foo: 'bar' })
+              .expect(201, ['body.func(%)', { result: true }])
+              .end(done);
+          });
+        });
+      });
+    });
   });
   describe('status, write, and end', function() {
     beforeEach(function () {
