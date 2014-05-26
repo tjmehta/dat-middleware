@@ -62,9 +62,13 @@ describe('res', function() {
           beforeEach(function () {
             this.app = createAppWithMiddleware(
               mw.query().set('func', function (a) {
-                return a;
+                return {
+                  toJSON: function () {
+                    return a;
+                  }
+                };
               }),
-              mw.res.json(201, ['query.func(%)', 'body'])
+              mw.res.json(201, ['query.func(%).toJSON()', 'body'])
             );
           });
           it('should support req keypaths keypaths=false option', function (done) {
