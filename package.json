@@ -47,6 +47,7 @@
     "methods": "~0.1.0",
     "nodemon": "^1.0.15",
     "fn-object": "^0.2.1",
-    "clone": "^0.1.11"
+    "clone": "^0.1.11",
+    "function-proxy": "~0.5.1"
   }
 }

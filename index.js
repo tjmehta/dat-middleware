@@ -11,4 +11,5 @@ mw.res         = require('./lib/res');
 mw.body        = requestDataFactory('body');
 mw.query       = requestDataFactory('query');
 mw.params      = require('./lib/params');
+mw.log         = require('./lib/log');
 mw.errorHandler= require('./lib/errorHandler');

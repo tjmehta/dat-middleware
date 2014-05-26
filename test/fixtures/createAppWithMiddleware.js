@@ -1,8 +1,10 @@
 var express = require('express');
 var mw = require('../../index');
+var next = function (req, res, next) {next();}
 
-module.exports = function createAppWithMiddleware (middleware, middleware2) {
-  middleware2 = middleware2 || function (req, res, next) {next();};
+module.exports = function createAppWithMiddleware (middleware, middleware2, middleware3) {
+  middleware2 = middleware2 || next;
+  middleware3 = middleware3 || next;
   var app = express();
   app.use(express.json());
   app.use(express.urlencoded());
@@ -10,7 +12,8 @@ module.exports = function createAppWithMiddleware (middleware, middleware2) {
   app.use(mw.errorHandler({ showStack: true, log: false }));
   app.all('/',
     middleware,
-    middleware2);
+    middleware2,
+    middleware3);
   app.all('/body',
     // inspect,
     middleware,
