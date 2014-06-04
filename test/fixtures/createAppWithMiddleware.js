@@ -1,6 +1,6 @@
 var express = require('express');
 var mw = require('../../index');
-var next = function (req, res, next) {next();}
+var next = function (req, res, next) {next();};
 
 module.exports = function createAppWithMiddleware (middleware, middleware2, middleware3) {
   middleware2 = middleware2 || next;
