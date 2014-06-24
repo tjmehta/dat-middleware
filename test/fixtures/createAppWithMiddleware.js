@@ -22,6 +22,10 @@ module.exports = function createAppWithMiddleware (middleware, middleware2, midd
     // inspect,
     middleware,
     mw.query().send());
+  app.all('/headers',
+    // inspect,
+    middleware,
+    mw.headers().send());
   app.all('/params/:key1?/:key2?/:key3?/:key4?/:key5?',
     // inspect,
     middleware,
@@ -33,5 +37,6 @@ function inspect (req, res, next) {
   console.log('req.body', req.body);
   console.log('req.query', req.query);
   console.log('req.params', req.params);
+  console.log('req.headers', req.headers);
   next();
 }

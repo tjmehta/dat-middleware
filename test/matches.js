@@ -12,10 +12,12 @@ describe('matches', function () {
   describe('mw.body(key).matches(/value/)', matches('body', /value/, 'value'));
   describe('mw.query(key).matches(/value/)', matches('query', /value/, 'value'));
   describe('mw.params(key).matches(/value/)', matches('params', /value/, 'value'));
+  describe('mw.headers(key).matches(/value/)', matches('headers', /value/, 'value'));
 
   describe('mw.body(keys...).matches("string")', matchesKeys('body', /value/, 'value'));
   describe('mw.query(keys...).matches("string")', matchesKeys('query', /value/, 'value'));
   describe('mw.params(keys...).matches("string")', matchesKeys('params', /value/, 'value'));
+  describe('mw.headers(keys...).matches("string")', matchesKeys('headers', /value/, 'value'));
 });
 
 
@@ -33,8 +35,10 @@ function matches (dataType, re, value) {
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
+      var headers = dataType === 'headers' ? data : {};
       request(this.app)
         .post('/'+dataType, params, query)
+        .set(headers)
         .send(body)
         .expect(400)
         .end(done);
@@ -45,10 +49,13 @@ function matches (dataType, re, value) {
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
+      var headers = dataType === 'headers' ? data : {};
       request(this.app)
         .post('/'+dataType, params, query)
+        .set(headers)
         .send(body)
-        .expect(200, data)
+        .expect(200)
+        .expect(checkResponseMatch(dataType, headers, data))
         .end(done);
     });
     it('should succeed if key does not exist', function (done) {
@@ -56,13 +63,28 @@ function matches (dataType, re, value) {
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
+      var headers = dataType === 'headers' ? data : {};
       request(this.app)
         .post('/'+dataType, params, query)
+        .set(headers)
         .send(body)
-        .expect(200, data)
+        .expect(200)
+        .expect(checkResponseMatch(dataType, headers, data))
         .end(done);
     });
   };
+}
+
+function checkResponseMatch(dataType, headers, data) {
+  return function (res) {
+    if (dataType === 'headers') {
+      Object.keys(headers).forEach(function (key) {
+        res.body[key].should.match(data[key]);
+      });
+    } else {
+      res.body.should.match(data);
+    }
+  }
 }
 
 function matchesKeys (dataType, re, value) {
@@ -76,10 +98,13 @@ function matchesKeys (dataType, re, value) {
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
+      var headers = dataType === 'headers' ? data : {};
       request(this.app)
         .post('/'+dataType, params, query)
+        .set(headers)
         .send(body)
-        .expect(200, data)
+        .expect(200)
+        .expect(checkResponseMatch(dataType, headers, data))
         .end(done);
     });
     if (dataType === 'body') {
@@ -122,10 +147,13 @@ function matchesKeys (dataType, re, value) {
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
+      var headers = dataType === 'headers' ? data : {};
       request(this.app)
         .post('/'+dataType, params, query)
+        .set(headers)
         .send(body)
-        .expect(200, data)
+        .expect(200)
+        .expect(checkResponseMatch(dataType, headers, data))
         .end(done);
     });
   };
