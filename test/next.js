@@ -6,13 +6,13 @@ var spyOnMethod = require('function-proxy').spyOnMethod;
 var createCount = require('callback-count');
 
 describe('next', function() {
-  describe('normal next', function() {
+  describe('handle errors', function() {
     beforeEach(function () {
       this.app = createAppWithMiddleware(
         mw.next(new Error('boom'))
       );
     });
-    it('should work pass args to console.log', function (done) {
+    it('should next the error', function (done) {
       request(this.app)
         .get('/')
         .expect(500)
@@ -23,14 +23,14 @@ describe('next', function() {
     });
   });
 
-  describe('keypaths', function() {
+  describe('handle keypaths', function() {
     beforeEach(function () {
       this.app = createAppWithMiddleware(
         mw.req().set('err', new Error('boom')),
         mw.next('err')
       );
     });
-    it('should work replace keypaths before console.log', function (done) {
+    it('should replace keypaths before nexting', function (done) {
       request(this.app)
         .get('/')
         .expect(500)
