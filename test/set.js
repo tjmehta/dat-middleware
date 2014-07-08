@@ -3,7 +3,7 @@ var mw = require('../index');
 var fno = require('fn-object');
 var createCounter = require('callback-count');
 var request = require('./lib/superdupertest');
-var clone = require('clone');
+var clone = require('101/clone');
 var values = function (obj) {
   return Object.keys(obj).map(function (key) {
     return obj[key];
