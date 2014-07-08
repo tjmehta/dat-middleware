@@ -58,7 +58,7 @@ function matches (dataType, re, value) {
         .expect(checkResponseMatch(dataType, headers, data))
         .end(done);
     });
-    it('should succeed if key does not exist', function (done) {
+    it('should fail if key does not exist', function (done) {
       var data = {};
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
@@ -68,8 +68,7 @@ function matches (dataType, re, value) {
         .post('/'+dataType, params, query)
         .set(headers)
         .send(body)
-        .expect(200)
-        .expect(checkResponseMatch(dataType, headers, data))
+        .expect(400)
         .end(done);
     });
   };
@@ -84,7 +83,7 @@ function checkResponseMatch(dataType, headers, data) {
     } else {
       res.body.should.match(data);
     }
-  }
+  };
 }
 
 function matchesKeys (dataType, re, value) {
@@ -93,7 +92,7 @@ function matchesKeys (dataType, re, value) {
       var keys = this.keys = ['key1', 'key2'];
       this.app = createAppWithMiddleware(mw[dataType](keys[0], keys[1]).matches(re));
     });
-    it('should succeed if all keys are not included', function (done) {
+    it('should fail if all keys are not included', function (done) {
       var data = {};
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
@@ -103,8 +102,7 @@ function matchesKeys (dataType, re, value) {
         .post('/'+dataType, params, query)
         .set(headers)
         .send(body)
-        .expect(200)
-        .expect(checkResponseMatch(dataType, headers, data))
+        .expect(400)
         .end(done);
     });
     if (dataType === 'body') {
@@ -132,7 +130,7 @@ function matchesKeys (dataType, re, value) {
           .send(body2)
           .expect(400)
           .expect(function (res) {
-            res.body.message.should.match(new RegExp(keys[1]));
+            res.body.message.should.match(new RegExp(keys[0]));
             res.body.message.should.match(reRE);
           })
           .end(count.inc().next);

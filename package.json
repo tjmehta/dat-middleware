@@ -24,6 +24,9 @@
     "params"
   ],
   "author": "Tejesh Mehta",
+  "contributors": [
+    "Bryan Kendall <bryan@bryankendall.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tjmehta/dat-middleware/issues"
@@ -36,7 +39,7 @@
     "fn-object": "^0.2.2",
     "keypather": "^1.7.0",
     "map-utils": "~0.4.0",
-    "middleware-flow": "^0.4.1"
+    "middleware-flow": "^0.5.0"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
