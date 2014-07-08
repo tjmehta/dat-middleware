@@ -33,6 +33,36 @@ describe('conditionals', function () {
         .end(done);
     });
   });
+  describe('only then, failing', function () {
+    before(function () {
+      this.app = createAppWithMiddleware(
+        mw.body('nonexistant').require()
+          .then(appendReqBody('key', '3'))
+      );
+    });
+    it('should not execute "then-middlewares" the validation passes', function (done) {
+      request(this.app)
+        .post('/body')
+        .send({ key: 'val' })
+        .expect({ key: 'val' })
+        .end(done);
+    });
+  });
+  describe('match, only then, failing', function () {
+    before(function () {
+      this.app = createAppWithMiddleware(
+        mw.body('nonexistant').matches(/^nope$/)
+          .then(appendReqBody('key', '3'))
+      );
+    });
+    it('should not execute "then-middlewares" the validation passes', function (done) {
+      request(this.app)
+        .post('/body')
+        .send({ key: 'val' })
+        .expect({ key: 'val' })
+        .end(done);
+    });
+  });
   describe('else', function () {
     before(function () {
       this.app = createAppWithMiddleware(
