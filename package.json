@@ -24,6 +24,9 @@
     "params"
   ],
   "author": "Tejesh Mehta",
+  "contributors": [
+    "Bryan Kendall <bryan@bryankendall.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tjmehta/dat-middleware/issues"
