@@ -62,7 +62,7 @@ function setKeys (dataType, obj) {
   return function () {
     before(function () {
       this.keys = ['key1', 'key2'];
-      this.app = createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).set(obj));
+      this.app = createAppWithMiddleware(mw[dataType]().set(obj));
     });
     it('should set key', function (done) {
       var data = {};
