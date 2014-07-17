@@ -3,7 +3,7 @@ var mw = require('../index');
 var fno = require('fn-object');
 var createCounter = require('callback-count');
 var request = require('./lib/superdupertest');
-var clone = require('clone');
+var clone = require('101/clone');
 var values = function (obj) {
   return Object.keys(obj).map(function (key) {
     return obj[key];
@@ -62,7 +62,7 @@ function setKeys (dataType, obj) {
   return function () {
     before(function () {
       this.keys = ['key1', 'key2'];
-      this.app = createAppWithMiddleware(mw[dataType](this.keys[0], this.keys[1]).set(obj));
+      this.app = createAppWithMiddleware(mw[dataType]().set(obj));
     });
     it('should set key', function (done) {
       var data = {};

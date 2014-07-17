@@ -64,7 +64,7 @@ function typeOf (dataType, type, value) {
         .expect(200, data)
         .end(done);
     });
-    it('should succeed if key does not exist', function (done) {
+    it('should fail if key does not exist', function (done) {
       var data = {};
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
@@ -72,7 +72,7 @@ function typeOf (dataType, type, value) {
       request(this.app)
         .post('/'+dataType, params, query)
         .send(body)
-        .expect(200, data)
+        .expect(400)
         .end(done);
     });
   };
@@ -84,7 +84,7 @@ function typeOfKeys (dataType, type, value) {
       var keys = this.keys = ['key1', 'key2'];
       this.app = createAppWithMiddleware(mw[dataType](keys[0], keys[1]).typeOf(type));
     });
-    it('should succeed if all keys are not included', function (done) {
+    it('should fail if all keys are not included', function (done) {
       var data = {};
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
@@ -92,7 +92,7 @@ function typeOfKeys (dataType, type, value) {
       request(this.app)
         .post('/'+dataType, params, query)
         .send(body)
-        .expect(200, data)
+        .expect(400)
         .end(done);
     });
     if (dataType === 'body') {
@@ -120,7 +120,7 @@ function typeOfKeys (dataType, type, value) {
           .send(body2)
           .expect(400)
           .expect(function (res) {
-            res.body.message.should.match(new RegExp(keys[1]));
+            res.body.message.should.match(new RegExp(keys[0]));
             res.body.message.should.match(typeRE);
           })
           .end(count.inc().next);
