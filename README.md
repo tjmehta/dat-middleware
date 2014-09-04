@@ -226,6 +226,28 @@ var app = require('express')();
 app.use(mw.body().unset('key1', 'key2'));
 ```
 
+# Flow Control
+
+## each()
+
+iterates through a series of middlewares (in parallel) for each item in an array
+
+```js
+var mw = require('dat-middleware');
+var app = require('express')();
+
+// a body of { arr: [1,2,3] }
+app.use(mw.body('arr').each(
+  function (eachReq, res, next) {
+    // eachReq prototypically inherits from the original req
+    // (get gets from req, set only sets to eachReq)
+  },
+  function (item, req, eachReq, res, next) {
+    // if five arguments are accepted the current item and the origin req are passed
+  }
+));
+```
+
 # Conditionals (flow control):
 
 for more flow control checkout [middleware-flow](http://github.com/tjmehta/middleware-flow)
