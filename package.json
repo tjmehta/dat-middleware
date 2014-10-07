@@ -37,7 +37,7 @@
     "boom": "~2.4.0",
     "callback-count": "0.0.3",
     "fn-object": "^0.2.2",
-    "keypather": "^1.7.0",
+    "keypather": "^1.7.5",
     "map-utils": "~0.4.0",
     "middleware-flow": "^0.6.0"
   },

@@ -2,6 +2,7 @@ var createAppWithMiddleware = require('./fixtures/createAppWithMiddleware');
 var mw = require('../index');
 var createCounter = require('callback-count');
 var request = require('./lib/superdupertest');
+var keypather = require('keypather')();
 var values = function (obj) {
   return Object.keys(obj).map(function (key) {
     return obj[key];
@@ -12,6 +13,8 @@ describe('require', function () {
   describe('mw.body(key).require()', requireKey('body'));
   describe('mw.query(key).require()', requireKey('query'));
   describe('mw.params(key).require()', requireKey('params'));
+
+  describe('mw.body(keypath).require()', requireKeypath('body', 'foo.bar.baz'));
 
   describe('mw.body(keys...).require()', requireKeys('body'));
   describe('mw.query(keys...).require()', requireKeys('query'));
@@ -44,6 +47,40 @@ function requireKey (dataType) {
     it('should succeed if required key included', function (done) {
       var data = {};
       data[this.key] = 'value';
+      var body = dataType === 'body' ? data : {};
+      var query = dataType === 'query' ? data : {};
+      var params = dataType === 'params' ? values(data) : [];
+      request(this.app)
+        .post('/'+dataType, params, query)
+        .send(data)
+        .expect(200, data)
+        .end(done);
+    });
+  };
+}
+
+function requireKeypath (dataType, keypath) {
+  return function () {
+    before(function () {
+      this.keypath = keypath;
+      this.app = createAppWithMiddleware(mw[dataType](this.keypath).require());
+    });
+    it('should error if required key not included', function (done) {
+      var body = {};
+      var query = {};
+      var params = values({});
+      request(this.app)
+        .post('/'+dataType, params, query)
+        .send(body)
+        .expect(400)
+        .expect(function (res) {
+          res.body.message.should.match(/required/);
+        })
+        .end(done);
+    });
+    it('should succeed if required key included', function (done) {
+      var data = {};
+      keypather.set(data, this.keypath, 'value');
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
