@@ -39,7 +39,7 @@
     "fn-object": "^0.2.2",
     "keypather": "^1.7.5",
     "map-utils": "~0.4.0",
-    "middleware-flow": "^0.6.0"
+    "middleware-flow": "^0.6.1"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
