@@ -209,8 +209,9 @@ sets the keys and values on the data type.
 var mw = require('dat-middleware');
 var app = require('express')();
 
-// a body of { key1: true, key2: true, key3:true } becomes { key1: true }
+// a body of { foo: 1 } becomes { foo: 1, key: 'value' }
 app.use(mw.body().set('key', 'value'));
+// a body of { key1: true, key2: true, key3:true } becomes extended by obj
 app.use(mw.body().set(obj));
 ```
 
