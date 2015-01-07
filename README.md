@@ -215,7 +215,7 @@ app.use(mw.body().set('key', 'value'));
 // a body of { key1: true, key2: true, key3:true } becomes extended by obj
 app.use(mw.body().set(obj));
 
-// a body of { key1: 2 } becomes { key1: 2, key2: 1.4142135623730951}
+// a body of { key1: 2 } becomes { key1: 2, key2: 1.4142135623730951 }
 app.use(mw.body().set('key2', 'key1', function (val) { return Math.sqrt(val); }))
 ```
 
