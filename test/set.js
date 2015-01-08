@@ -4,7 +4,6 @@ var createCounter = require('callback-count');
 var fno = require('fn-object');
 var isFunction = require('101/is-function');
 var isString = require('101/is-string');
-var isEmpty = require('101/is-empty');
 var mw = require('../index');
 var request = require('./lib/superdupertest');
 var keypather = require('keypather')();
