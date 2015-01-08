@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/tjmehta/dat-middleware",
   "dependencies": {
-    "101": "^0.6.0",
+    "101": "^0.8.1",
     "boom": "~2.4.0",
     "callback-count": "0.0.3",
     "fn-object": "^0.2.2",
