@@ -5,16 +5,31 @@ var request = require('./lib/superdupertest');
 
 describe('res', function() {
   describe('send', function() {
-    beforeEach(function () {
-      this.app = createAppWithMiddleware(
-        mw.res.send(201, 'hello')
-      );
+    describe('code, string', function () {
+      beforeEach(function () {
+        this.app = createAppWithMiddleware(
+          mw.res.send(201, 'hello')
+        );
+      });
+      it('should work like res.send', function (done) {
+        request(this.app)
+          .get('/')
+          .expect(201, 'hello')
+          .end(done);
+      });
     });
-    it('should work like res.send', function (done) {
-      request(this.app)
-        .get('/')
-        .expect(201, 'hello')
-        .end(done);
+    describe('array', function () {
+      beforeEach(function () {
+        this.app = createAppWithMiddleware(
+          mw.res.send([])
+        );
+      });
+      it('should work like res.send', function (done) {
+        request(this.app)
+          .get('/')
+          .expect(200, [])
+          .end(done);
+      });
     });
   });
   describe('json', function() {
