@@ -44,7 +44,6 @@ describe('log', function() {
           args[0].should.eql({ foo: 'bar' });
           count.next();
         }
-        count.next();
       });
       request(this.app)
         .get('/')
