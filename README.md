@@ -1,17 +1,19 @@
-# dat-middleware [![Build Status](https://travis-ci.org/tjmehta/dat-middleware.png?branch=master)](https://travis-ci.org/tjmehta/dat-middleware)
+dat-middleware
+==============
+[![Build Status][1]][2] [![dependency status][3]][4] [![dev dependency status][5]][6]
 
 Common request, response, body, query, and param validation, transformation, and flow control middleware
 
-# Installation
+## Installation
 ```bash
 npm install dat-middleware
 ```
 
-# Examples
+## Examples
 
-# Validations:
+## Validations:
 
-## require()
+### require()
 
 requires the keys specified, and nexts a 400 error if one does not exist
 
@@ -31,7 +33,7 @@ app.use(mw.body('key1, key2').require());
 // 400 { message: body parameter "key1" is required }
 ```
 
-## string()
+### string()
 
 requires the keys are strings (if they exist), and nexts a 400 error if one is not
 
@@ -41,7 +43,7 @@ mw.query(keys..).string()
 mw.params(keys..).string()
 ```
 
-## number()
+### number()
 
 requires the keys are numbers (if they exist), and nexts a 400 error if one is not
 
@@ -51,7 +53,7 @@ mw.query(keys..).number()
 mw.params(keys..).number()
 ```
 
-## object()
+### object()
 
 requires the keys are objects (if they exist), and nexts a 400 error if one is not
 
@@ -61,7 +63,7 @@ mw.query(keys..).object()
 mw.params(keys..).object()
 ```
 
-## function()
+### function()
 
 requires the keys are functions (if they exist), and nexts a 400 error if one is not
 
@@ -71,7 +73,7 @@ mw.query(keys..).function()
 mw.params(keys..).function()
 ```
 
-## boolean()
+### boolean()
 
 requires the keys are booleans (if they exist), and nexts a 400 error if one is not
 
@@ -81,7 +83,7 @@ mw.query(keys..).boolean()
 mw.params(keys..).boolean()
 ```
 
-## array()
+### array()
 
 requires the keys are arrays (if they exist), and nexts a 400 error if one is not
 
@@ -107,7 +109,7 @@ mw.query(keys..).instanceOf(Class)
 mw.params(keys..).instanceOf(Class)
 ```
 
-## instanceOf(Class)
+### instanceOf(Class)
 
 requires the keys are an instance of the specified class (if they exist), and nexts a 400 error if one is not
 
@@ -121,7 +123,7 @@ app.use(mw.body('key1, key2').instanceOf(Class));
 // 400 { message: body parameter "key1" must be an instance of Class }
 ```
 
-## matches(regexp)
+### matches(regexp)
 
 requires the keys are an instance of the specified class (if they exist), and nexts a 400 error if one is not
 
@@ -135,7 +137,7 @@ app.use(mw.body('key1, key2').matches(/^hello/));
 // 400 { message: body parameter "key1" must match /^hello/ }
 ```
 
-## validate(validation)
+### validate(validation)
 
 requires the keys pass the validation (if they exist), and nexts a 400 error if one is not
 dat-middleware uses [spumko/boom](https://github.com/spumko/boom) for http errors (exported as mw.Boom)
@@ -155,9 +157,9 @@ app.use(mw.body('key1, key2').validate(is24Chars));
 // 400 { message: body parameter "key1" is not 24 characters }
 ```
 
-# Transformations:
+## Transformations:
 
-## mapValues(transformation)
+### mapValues(transformation)
 
 transforms the values of the keys specified using the transformation function
 
@@ -172,7 +174,7 @@ function toInt (v) {
 app.use(mw.body('key1, key2').mapValues(toInt));
 ```
 
-## transform(transformation)
+### transform(transformation)
 
 transforms the entire dataType object using the transformation function
 
@@ -189,7 +191,7 @@ function valuesToInt (body) {
 app.use(mw.body().transform(valuesToInt));
 ```
 
-## pick()
+### pick()
 
 picks the keys specified and ignores the rest. a way of filtering data values by key.
 
@@ -201,7 +203,7 @@ var app = require('express')();
 app.use(mw.body('key1').pick());
 ```
 
-## set()
+### set()
 
 sets the keys and values on the data type.
 
@@ -219,7 +221,7 @@ app.use(mw.body().set(obj));
 app.use(mw.body().set('key2', 'key1', function (val) { return Math.sqrt(val); }))
 ```
 
-## unset()
+### unset()
 
 deletes the keys on the data type.
 
@@ -231,9 +233,9 @@ var app = require('express')();
 app.use(mw.body().unset('key1', 'key2'));
 ```
 
-# Flow Control
+## Flow Control
 
-## each()
+### each()
 
 iterates through a series of middlewares (in parallel) for each item in an array
 
@@ -253,11 +255,11 @@ app.use(mw.body('arr').each(
 ));
 ```
 
-# Conditionals (flow control):
+## Conditionals (flow control):
 
 for more flow control checkout [middleware-flow](http://github.com/tjmehta/middleware-flow)
 
-## [validation chain].then(middlewares...).else(middlewares)
+### [validation chain].then(middlewares...).else(middlewares)
 
 ```js
 var mw = require('dat-middleware');
@@ -271,7 +273,7 @@ app.use(mw.body('key1, key2').require()
 );
 ```
 
-# Chaining: chained methods will run in order
+## Chaining: chained methods will run in order
 
 note: conditionals do not chain before validations and transformations
 
@@ -291,5 +293,12 @@ function toInt (v) {
 app.use(mw.body('key1, key2').require().validate(hasLengthOf3).transform(toInt));
 ```
 
-# License
-### MIT
+## License
+**MIT**
+
+[1]: https://travis-ci.org/tjmehta/dat-middleware.png
+[2]: https://travis-ci.org/tjmehta/dat-middleware
+[3]: https://david-dm.org/tjmehta/dat-middleware.png
+[4]: https://david-dm.org/tjmehta/dat-middleware
+[5]: https://david-dm.org/tjmehta/dat-middleware/dev-status.png
+[6]: https://david-dm.org/tjmehta/dat-middleware#info=devDependencies
