@@ -1,6 +1,8 @@
 dat-middleware
 ==============
-[![Build Status][1]][2] [![dependency status][3]][4] [![dev dependency status][5]][6]
+[![Build Status][ci_img]][ci_lnk]
+[![dependency status][depend_img]][depend_lnk]
+[![dev dependency status][devdepend_img]][devdepend_lnk]
 
 Common request, response, body, query, and param validation, transformation, and flow control middleware
 
@@ -296,9 +298,9 @@ app.use(mw.body('key1, key2').require().validate(hasLengthOf3).transform(toInt))
 ## License
 **MIT**
 
-[1]: https://travis-ci.org/tjmehta/dat-middleware.png
-[2]: https://travis-ci.org/tjmehta/dat-middleware
-[3]: https://david-dm.org/tjmehta/dat-middleware.png
-[4]: https://david-dm.org/tjmehta/dat-middleware
-[5]: https://david-dm.org/tjmehta/dat-middleware/dev-status.png
-[6]: https://david-dm.org/tjmehta/dat-middleware#info=devDependencies
+[ci_img]: https://travis-ci.org/tjmehta/dat-middleware.png
+[ci_lnk]: https://travis-ci.org/tjmehta/dat-middleware
+[depend_img]: https://david-dm.org/tjmehta/dat-middleware.png
+[depend_lnk]: https://david-dm.org/tjmehta/dat-middleware
+[devdepend_img]: https://david-dm.org/tjmehta/dat-middleware/dev-status.png
+[devdepend_lnk]: https://david-dm.org/tjmehta/dat-middleware#info=devDependencies
