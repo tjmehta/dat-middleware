@@ -8,7 +8,7 @@ module.exports = function createAppWithMiddleware (middleware, middleware2, midd
   middleware3 = middleware3 || next;
   var app = express();
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded());
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.all('/',
     middleware,
     middleware2,

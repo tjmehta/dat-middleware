@@ -57,7 +57,6 @@ function eachSpecs (arr, middlewares) {
         })
         .expect(200)
         .expect(function (res) {
-          console.log(res.body);
           res.body.arr.should.eql([1, 2, 3]);
           res.body.sum.should.eql(6);
           res.body.count.should.eql(3);
