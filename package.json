@@ -36,20 +36,18 @@
     "101": "^0.8.2",
     "boom": "~2.4.0",
     "callback-count": "0.0.3",
-    "fn-object": "^0.2.2",
     "keypather": "^1.8.1",
-    "map-utils": "~0.4.0",
     "middleware-flow": "^0.6.1"
   },
   "devDependencies": {
     "body-parser": "^1.12.2",
     "express": "^4.12.3",
-    "fn-object": "^0.2.1",
-    "function-proxy": "~0.5.1",
     "methods": "~0.1.0",
     "mocha": "~1.17.1",
     "nodemon": "^1.0.15",
+    "object-loops": "^0.5.1",
     "should": "~3.1.2",
+    "sinon": "^1.17.2",
     "supertest": "~0.9.0"
   }
 }

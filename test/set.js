@@ -1,7 +1,6 @@
 var clone = require('101/clone');
 var createAppWithMiddleware = require('./fixtures/createAppWithMiddleware');
 var createCounter = require('callback-count');
-var fno = require('fn-object');
 var isFunction = require('101/is-function');
 var isString = require('101/is-string');
 var mw = require('../index');

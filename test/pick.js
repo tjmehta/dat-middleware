@@ -1,6 +1,5 @@
 var createAppWithMiddleware = require('./fixtures/createAppWithMiddleware');
 var mw = require('../index');
-var fno = require('fn-object');
 var createCounter = require('callback-count');
 var request = require('./lib/superdupertest');
 var values = function (obj) {

@@ -1,9 +1,8 @@
 var createAppWithMiddleware = require('./fixtures/createAppWithMiddleware');
-var mw = require('../index');
-var series = require('middleware-flow').series;
-var request = require('./lib/superdupertest');
-var spyOnMethod = require('function-proxy').spyOnMethod;
 var createCount = require('callback-count');
+var mw = require('../index');
+var request = require('./lib/superdupertest');
+var series = require('middleware-flow').series;
 
 describe('next', function() {
   describe('handle errors', function() {
