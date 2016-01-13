@@ -42,7 +42,6 @@
   "devDependencies": {
     "body-parser": "^1.12.2",
     "express": "^4.12.3",
-    "function-proxy": "~0.5.1",
     "methods": "~0.1.0",
     "mocha": "~1.17.1",
     "nodemon": "^1.0.15",
