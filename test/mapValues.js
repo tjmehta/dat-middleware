@@ -1,6 +1,6 @@
 var createAppWithMiddleware = require('./fixtures/createAppWithMiddleware');
 var mw = require('../index');
-var fno = require('fn-object');
+var objectMap = require('object-loops/map');
 var createCounter = require('callback-count');
 var request = require('./lib/superdupertest');
 var values = function (obj) {
@@ -35,7 +35,7 @@ function transformKey (dataType, value, transformation) {
     it('should transform '+dataType+' values', function (done) {
       var data = {};
       data[this.key] = value;
-      var transformedData = fno(data).vals.map(transformation).val();
+      var transformedData = objectMap(data, transformation);
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
@@ -64,7 +64,7 @@ function transformKeys (dataType, value, transformation) {
       var data = {};
       data[this.keys[0]] = value;
       data[this.keys[1]] = value;
-      var transformedData = fno(data).vals.map(transformation).val();
+      var transformedData = objectMap(data, transformation);
       var body = dataType === 'body' ? data : {};
       var query = dataType === 'query' ? data : {};
       var params = dataType === 'params' ? values(data) : [];
